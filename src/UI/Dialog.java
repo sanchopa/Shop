@@ -1,11 +1,18 @@
+package UI;
+
+import Date.ParseFile;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.util.Objects;
 
 public class Dialog extends JFrame {
+    JTextField fieldCountProduct;
+
     public Dialog() throws HeadlessException {
         super("Book shop");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -24,12 +31,13 @@ public class Dialog extends JFrame {
         boxClientField.add(new JTextField(10));
 
         Box boxProductList = Box.createVerticalBox();
-        boxProductList.add(createList());
+        boxProductList.add(createList(getDataListProduct()));
 
         Box boxAddProductList = Box.createHorizontalBox();
         boxAddProductList.add(new JLabel("Count:"));
-        JTextField fieldCountProduct = new JTextField(3);
+        fieldCountProduct = new JTextField(3);
         fieldCountProduct.setMaximumSize(fieldCountProduct.getPreferredSize());
+        fieldCountProduct.setText("1");
         boxAddProductList.add(fieldCountProduct);
         boxAddProductList.add(new JButton("Add to order"));
 
@@ -39,7 +47,7 @@ public class Dialog extends JFrame {
         boxProduct.add(boxAddProductList);
 
         Box boxNewOrder = Box.createVerticalBox();
-        boxNewOrder.add(createList());
+        boxNewOrder.add(createList(null));
 
         Box boxAddOrder = Box.createHorizontalBox();
         boxAddOrder.add(new JLabel("Total: "));
@@ -53,7 +61,7 @@ public class Dialog extends JFrame {
         boxOrder.add(boxAddOrder);
 
         Box boxOrderList = Box.createVerticalBox();
-        boxOrderList.add(createList());
+        boxOrderList.add(createList(null));
 
         Box boxOrderEdit = Box.createHorizontalBox();
         boxOrderEdit.add(new JButton("Delete"));
@@ -74,11 +82,17 @@ public class Dialog extends JFrame {
         setResizable(false);
     }
 
-    private JScrollPane createList() {
+    private JScrollPane createList(Object[] listData) {
         JList jList = new JList();
         jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList.setSelectedIndex(0);
         jList.setVisibleRowCount(5);
+        if(listData!=null)
+            jList.setListData(listData);
         return new JScrollPane(jList);
+    }
+
+    private Object [] getDataListProduct() {
+        return ParseFile.getArrayProduct();
     }
 }

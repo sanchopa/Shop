@@ -11,6 +11,7 @@ public class Dialog extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         Box boxClientField = Box.createHorizontalBox();
+        boxClientField.setBorder(new TitledBorder("Client"));
         boxClientField.add(new JLabel("Name:"));
         boxClientField.add(new JTextField(10));
         boxClientField.add(new JLabel("Surname:"));
@@ -22,17 +23,8 @@ public class Dialog extends JFrame {
         boxClientField.add(new JLabel("Address:"));
         boxClientField.add(new JTextField(10));
 
-        Box boxClient = Box.createVerticalBox();
-        boxClient.setBorder(new TitledBorder("Client"));
-        boxClient.add(boxClientField);
-
         Box boxProductList = Box.createVerticalBox();
-        JList listProduct = new JList();
-        listProduct.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listProduct.setSelectedIndex(0);
-        listProduct.setVisibleRowCount(5);
-        JScrollPane listProductScrollPane = new JScrollPane(listProduct);
-        boxProductList.add(listProductScrollPane);
+        boxProductList.add(createList());
 
         Box boxAddProductList = Box.createHorizontalBox();
         boxAddProductList.add(new JLabel("Count:"));
@@ -47,12 +39,7 @@ public class Dialog extends JFrame {
         boxProduct.add(boxAddProductList);
 
         Box boxNewOrder = Box.createVerticalBox();
-        JList listNewOrder = new JList();
-        listNewOrder.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listNewOrder.setSelectedIndex(0);
-        listNewOrder.setVisibleRowCount(5);
-        JScrollPane listNewOrderScrollPane = new JScrollPane(listNewOrder);
-        boxNewOrder.add(listNewOrderScrollPane);
+        boxNewOrder.add(createList());
 
         Box boxAddOrder = Box.createHorizontalBox();
         boxAddOrder.add(new JLabel("Total: "));
@@ -60,29 +47,38 @@ public class Dialog extends JFrame {
         boxAddOrder.add(new JButton("Delete"));
         boxAddOrder.add(new JButton("Buy"));
 
-        Box boxOrderList = Box.createVerticalBox();
-        boxOrderList.setBorder(new TitledBorder("Orders"));
-          JList listOrder = new JList();
-          listOrder.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-          listOrder.setSelectedIndex(0);
-          listOrder.setVisibleRowCount(5);
-          JScrollPane listOrderScrollPane = new JScrollPane(listOrder);
-          boxOrderList.add(listOrderScrollPane);
-          boxOrderList.add(new JButton("Delete"));
-
         Box boxOrder = Box.createVerticalBox();
         boxOrder .setBorder(new TitledBorder("New order"));
         boxOrder.add(boxNewOrder);
         boxOrder.add(boxAddOrder);
 
+        Box boxOrderList = Box.createVerticalBox();
+        boxOrderList.add(createList());
+
+        Box boxOrderEdit = Box.createHorizontalBox();
+        boxOrderEdit.add(new JButton("Delete"));
+
+        Box boxOrders = Box.createVerticalBox();
+        boxOrders.setBorder(new TitledBorder("Orders"));
+        boxOrders.add(boxOrderList);
+        boxOrders.add(boxOrderEdit);
+
         Box boxGeneral = Box.createVerticalBox();
-        boxGeneral.add(boxClient);
+        boxGeneral.add(boxClientField);
         boxGeneral.add(boxProduct);
         boxGeneral.add(boxOrder);
-        boxGeneral.add(boxOrderList);
+        boxGeneral.add(boxOrders);
 
         setContentPane(boxGeneral);
         pack();
         setResizable(false);
+    }
+
+    private JScrollPane createList() {
+        JList jList = new JList();
+        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jList.setSelectedIndex(0);
+        jList.setVisibleRowCount(5);
+        return new JScrollPane(jList);
     }
 }

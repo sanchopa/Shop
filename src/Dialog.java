@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -22,49 +23,66 @@ public class Dialog extends JFrame {
         boxClientField.add(new JTextField(10));
 
         Box boxClient = Box.createVerticalBox();
+        boxClient.setBorder(new TitledBorder("Client"));
         boxClient.add(boxClientField);
 
-        Box boxProductTable = Box.createVerticalBox();
-        String[] columnNames = {"Title", "Author", "Genre", "Publishing", "Year", "Price"};
-        Object[][] data = {{"Философия Java", "Эккель Брюс", "Программирование", "Питер", "2015","1224"},
-                {"Изучаем Java", "Сьерра Кэтти, Бейтс Берт", "Программирование", "Эксмо", "2012","659"},
-                {"Java 8. Полное руководство", "Шилдт Герберт", "Программирование", "Вильямс", "2015","3097"}};
-        JTable tableProduct = new JTable(data, columnNames);
-        boxProductTable.add(tableProduct.getTableHeader());
-        boxProductTable.add(tableProduct);
-        boxProductTable.add(new JButton("Add."));
+        Box boxProductList = Box.createVerticalBox();
+        JList listProduct = new JList();
+        listProduct.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listProduct.setSelectedIndex(0);
+        listProduct.setVisibleRowCount(5);
+        JScrollPane listProductScrollPane = new JScrollPane(listProduct);
+        boxProductList.add(listProductScrollPane);
+
+        Box boxAddProductList = Box.createHorizontalBox();
+        boxAddProductList.add(new JLabel("Count:"));
+        JTextField fieldCountProduct = new JTextField(3);
+        fieldCountProduct.setMaximumSize(fieldCountProduct.getPreferredSize());
+        boxAddProductList.add(fieldCountProduct);
+        boxAddProductList.add(new JButton("Add to order"));
 
         Box boxProduct = Box.createVerticalBox();
-        boxProduct.add(boxProductTable);
+        boxProduct.setBorder(new TitledBorder("Product"));
+        boxProduct.add(boxProductList);
+        boxProduct.add(boxAddProductList);
 
         Box boxNewOrder = Box.createVerticalBox();
-        JList list = new JList();
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setSelectedIndex(0);
-        list.setVisibleRowCount(5);
-        JScrollPane listScrollPane = new JScrollPane(list);
-        boxNewOrder.add(listScrollPane);
-        boxNewOrder.add(new JButton("Add"));
+        JList listNewOrder = new JList();
+        listNewOrder.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listNewOrder.setSelectedIndex(0);
+        listNewOrder.setVisibleRowCount(5);
+        JScrollPane listNewOrderScrollPane = new JScrollPane(listNewOrder);
+        boxNewOrder.add(listNewOrderScrollPane);
+
+        Box boxAddOrder = Box.createHorizontalBox();
+        boxAddOrder.add(new JLabel("Total: "));
+        boxAddOrder.add(new JLabel("0.0"));
+        boxAddOrder.add(new JButton("Delete"));
+        boxAddOrder.add(new JButton("Buy"));
 
         Box boxOrderList = Box.createVerticalBox();
+        boxOrderList.setBorder(new TitledBorder("Orders"));
           JList listOrder = new JList();
           listOrder.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           listOrder.setSelectedIndex(0);
           listOrder.setVisibleRowCount(5);
           JScrollPane listOrderScrollPane = new JScrollPane(listOrder);
           boxOrderList.add(listOrderScrollPane);
-
+          boxOrderList.add(new JButton("Delete"));
 
         Box boxOrder = Box.createVerticalBox();
+        boxOrder .setBorder(new TitledBorder("New order"));
         boxOrder.add(boxNewOrder);
-        boxOrder.add(boxOrderList);
+        boxOrder.add(boxAddOrder);
 
         Box boxGeneral = Box.createVerticalBox();
         boxGeneral.add(boxClient);
         boxGeneral.add(boxProduct);
         boxGeneral.add(boxOrder);
+        boxGeneral.add(boxOrderList);
 
         setContentPane(boxGeneral);
         pack();
+        setResizable(false);
     }
 }

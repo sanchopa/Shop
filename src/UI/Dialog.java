@@ -1,14 +1,12 @@
 package UI;
 
-import Date.ParseFile;
+import Service.DataLoader;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
-import java.util.Objects;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Dialog extends JFrame {
     JTextField fieldCountProduct;
@@ -31,7 +29,8 @@ public class Dialog extends JFrame {
         boxClientField.add(new JTextField(10));
 
         Box boxProductList = Box.createVerticalBox();
-        boxProductList.add(createList(getDataListProduct()));
+        JList listProduct = createList(DataLoader.getArrayProduct());
+        boxProductList.add(new JScrollPane(listProduct));
 
         Box boxAddProductList = Box.createHorizontalBox();
         boxAddProductList.add(new JLabel("Count:"));
@@ -39,7 +38,14 @@ public class Dialog extends JFrame {
         fieldCountProduct.setMaximumSize(fieldCountProduct.getPreferredSize());
         fieldCountProduct.setText("1");
         boxAddProductList.add(fieldCountProduct);
-        boxAddProductList.add(new JButton("Add to order"));
+        JButton buttonAddOrder = new JButton("Add to order");
+        buttonAddOrder.addMouseListener(new MouseAdapter() {
+                                            @Override
+                                            public void mouseClicked(MouseEvent e) {
+                                                System.out.println("Add to order");
+                                            }
+                                        });
+        boxAddProductList.add(buttonAddOrder);
 
         Box boxProduct = Box.createVerticalBox();
         boxProduct.setBorder(new TitledBorder("Product"));
@@ -47,13 +53,30 @@ public class Dialog extends JFrame {
         boxProduct.add(boxAddProductList);
 
         Box boxNewOrder = Box.createVerticalBox();
-        boxNewOrder.add(createList(null));
+        JList listNewOrder = createList(null);
+        boxNewOrder.add(new JScrollPane(listNewOrder));
 
         Box boxAddOrder = Box.createHorizontalBox();
         boxAddOrder.add(new JLabel("Total: "));
         boxAddOrder.add(new JLabel("0.0"));
-        boxAddOrder.add(new JButton("Delete"));
-        boxAddOrder.add(new JButton("Buy"));
+
+        JButton buttonDeletePosition = new JButton("Delete");
+        buttonDeletePosition.addMouseListener(new MouseAdapter() {
+                                                @Override
+                                                public void mouseClicked(MouseEvent e) {
+                                                    System.out.println("Delete");
+                                                }
+                                            });
+        boxAddOrder.add(buttonDeletePosition);
+
+        JButton buttonBuyOrder = new JButton("Buy");
+        buttonBuyOrder.addMouseListener(new MouseAdapter() {
+                                                @Override
+                                                public void mouseClicked(MouseEvent e) {
+                                                    System.out.println("Buy");
+                                                }
+                                            });
+        boxAddOrder.add(buttonBuyOrder);
 
         Box boxOrder = Box.createVerticalBox();
         boxOrder .setBorder(new TitledBorder("New order"));
@@ -61,10 +84,18 @@ public class Dialog extends JFrame {
         boxOrder.add(boxAddOrder);
 
         Box boxOrderList = Box.createVerticalBox();
-        boxOrderList.add(createList(null));
+        JList listOrder = createList(null);
+        boxOrderList.add(new JScrollPane(listOrder));
 
         Box boxOrderEdit = Box.createHorizontalBox();
-        boxOrderEdit.add(new JButton("Delete"));
+        JButton buttonDeleteOrder = new JButton("Delete");
+        buttonDeleteOrder.addMouseListener(new MouseAdapter() {
+                                            @Override
+                                            public void mouseClicked(MouseEvent e) {
+                                                System.out.println("Delete");
+                                            }
+                                        });
+        boxOrderEdit.add(buttonDeleteOrder);
 
         Box boxOrders = Box.createVerticalBox();
         boxOrders.setBorder(new TitledBorder("Orders"));
@@ -82,17 +113,13 @@ public class Dialog extends JFrame {
         setResizable(false);
     }
 
-    private JScrollPane createList(Object[] listData) {
+    private JList createList(Object[] listData) {
         JList jList = new JList();
         jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList.setSelectedIndex(0);
         jList.setVisibleRowCount(5);
         if(listData!=null)
             jList.setListData(listData);
-        return new JScrollPane(jList);
-    }
-
-    private Object [] getDataListProduct() {
-        return ParseFile.getArrayProduct();
+        return jList;
     }
 }

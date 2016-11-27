@@ -1,4 +1,4 @@
-package Date;
+package Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,7 +7,7 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseFile {
+public class DataLoader {
     public static Object [] getArrayProduct(){
         List stringProduct = new ArrayList<String>();
         try {

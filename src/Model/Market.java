@@ -5,13 +5,7 @@ import UI.Dialog;
 public class Market {
     private StorageGoods storageGoods = new StorageGoods();
     private StorageOrders storageOrders = new StorageOrders();
-
-    Order createNewOrder () {
-        Client newClient = new Client(Dialog.getClientName(),
-                                        Dialog.getClientSurname(), Dialog.getClientEmail(), Dialog.getClientPhone(),
-                                            Dialog.getClientAddress());
-        return new Order(storageOrders.getFreeNumber(),newClient);
-    }
+    private Order order = null;
 
     public Object[] getStringStorageGoods() {
         return storageGoods.getStringListStorags().toArray();
@@ -21,15 +15,17 @@ public class Market {
         storageGoods.addProduct(product);
     }
 
-    void sellOrder () {
-
+    public Product addProductToOrder(int indexProduct, int count) {
+        if(order==null) {
+            order = new Order(storageOrders.getFreeNumber());
+        }
+        Product product =  storageGoods.getProduct(indexProduct);
+        order.addProduct(product, count);
+        return  product;
     }
 
-    void printStorageGoods() {
-
+    public String getTottalSum () {
+        return String.valueOf(order.getItemSum());
     }
 
-    void printStorageOrders () {
-
-    }
 }

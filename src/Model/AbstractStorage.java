@@ -21,4 +21,8 @@ public class AbstractStorage<E> {
     int getFreeNumber() {
         return storags.size()+1;
     }
+
+    E getProduct(int index) {
+        return storags.get(index);
+    }
 }

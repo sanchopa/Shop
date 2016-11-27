@@ -9,8 +9,7 @@ public class Order {
     private Map<Product, Integer> goods= new HashMap<>();
     private double itemSum=0;
 
-    public Order(int orderNumber, Client client) {
-        this.client = client;
+    public Order(int orderNumber) {
         this.orderNumber = orderNumber;
     }
 

@@ -7,14 +7,14 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataLoader {
+public class DataLoaderFile{
     public static Object [] getArrayProduct(){
         List stringProduct = new ArrayList<String>();
         try {
             LineNumberReader lineNumberReader =
                     new LineNumberReader(
                             new BufferedReader(
-                                    new FileReader(".\\src\\Resurce\\Product.txt")));
+                                    new FileReader(".\\src\\Resurce\\Storage.txt")));
             String line;
             while ((line = lineNumberReader.readLine()) != null) {
                 stringProduct.add(line);

@@ -1,6 +1,9 @@
 package UI;
 
-import Service.DataLoader;
+import Model.Market;
+import Model.StorageGoods;
+import Service.DataLoaderFile;
+import Service.DialogService;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -9,27 +12,40 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Dialog extends JFrame {
-    JTextField fieldCountProduct;
+    private static JTextField fieldClientName;
+    private static JTextField fieldClientSurname;
+    private static JTextField fieldClientPhone;
+    private static JTextField fieldClientEmail;
+    private static JTextField fieldClientAddress;
 
-    public Dialog() throws HeadlessException {
+    private JTextField fieldCountProduct;
+    private DefaultListModel listModelNewOrder;
+
+    public Dialog(Market market) throws HeadlessException {
+
         super("Book shop");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         Box boxClientField = Box.createHorizontalBox();
         boxClientField.setBorder(new TitledBorder("Client"));
         boxClientField.add(new JLabel("Name:"));
-        boxClientField.add(new JTextField(10));
+        fieldClientName = new JTextField(10);
+        boxClientField.add(fieldClientName);
         boxClientField.add(new JLabel("Surname:"));
-        boxClientField.add(new JTextField(10));
+        fieldClientSurname = new JTextField(10);
+        boxClientField.add(fieldClientSurname);
         boxClientField.add(new JLabel("Phone num.:"));
-        boxClientField.add(new JTextField(10));
+        fieldClientPhone = new JTextField(10);
+        boxClientField.add(fieldClientPhone);
         boxClientField.add(new JLabel("E-mail:"));
-        boxClientField.add(new JTextField(10));
+        fieldClientEmail = new JTextField(10);
+        boxClientField.add(fieldClientEmail);
         boxClientField.add(new JLabel("Address:"));
-        boxClientField.add(new JTextField(10));
+        fieldClientAddress = new JTextField(10);
+        boxClientField.add(fieldClientAddress);
 
         Box boxProductList = Box.createVerticalBox();
-        JList listProduct = createList(DataLoader.getArrayProduct());
+        JList listProduct = createList(market.getStringStorageGoods(),new DefaultListModel());
         boxProductList.add(new JScrollPane(listProduct));
 
         Box boxAddProductList = Box.createHorizontalBox();
@@ -42,6 +58,7 @@ public class Dialog extends JFrame {
         buttonAddOrder.addMouseListener(new MouseAdapter() {
                                             @Override
                                             public void mouseClicked(MouseEvent e) {
+
                                                 System.out.println("Add to order");
                                             }
                                         });
@@ -53,7 +70,8 @@ public class Dialog extends JFrame {
         boxProduct.add(boxAddProductList);
 
         Box boxNewOrder = Box.createVerticalBox();
-        JList listNewOrder = createList(null);
+        listModelNewOrder = new DefaultListModel();
+        JList listNewOrder = createList(null, listModelNewOrder);
         boxNewOrder.add(new JScrollPane(listNewOrder));
 
         Box boxAddOrder = Box.createHorizontalBox();
@@ -84,7 +102,7 @@ public class Dialog extends JFrame {
         boxOrder.add(boxAddOrder);
 
         Box boxOrderList = Box.createVerticalBox();
-        JList listOrder = createList(null);
+        JList listOrder = createList(null, new DefaultListModel());
         boxOrderList.add(new JScrollPane(listOrder));
 
         Box boxOrderEdit = Box.createHorizontalBox();
@@ -113,13 +131,33 @@ public class Dialog extends JFrame {
         setResizable(false);
     }
 
-    private JList createList(Object[] listData) {
-        JList jList = new JList();
+    private JList createList(Object[] listData, DefaultListModel listModel) {
+        JList jList = new JList(listModel);
         jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList.setSelectedIndex(0);
         jList.setVisibleRowCount(5);
         if(listData!=null)
             jList.setListData(listData);
         return jList;
+    }
+
+    public static String getClientName() {
+        return fieldClientName.getText();
+    }
+
+    public static String getClientSurname() {
+        return fieldClientSurname.getText();
+    }
+
+    public static String getClientEmail() {
+        return fieldClientEmail.getText();
+    }
+
+    public static String getClientPhone() {
+        return fieldClientPhone.getText();
+    }
+
+    public static String getClientAddress() {
+        return fieldClientAddress.getText();
     }
 }

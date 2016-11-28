@@ -31,4 +31,9 @@ public class Market {
         return getTotalSum();
     }
 
+    public void buyOrder(String name, String surname, String email, String phone, String address) {
+        Client client = new Client(name,surname,email,phone, address);
+        order.setClient(client);
+        storageOrders.addProduct(order);
+    }
 }

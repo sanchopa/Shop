@@ -39,4 +39,8 @@ public class Order {
         itemSum-=count*(product.getPrice());
         goods.remove(index);
     }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

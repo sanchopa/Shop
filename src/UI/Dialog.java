@@ -19,6 +19,8 @@ public class Dialog extends JFrame {
     private DefaultListModel listModelNewOrder;
     private JLabel labelTotal;
     private JList listProduct;
+    private  JList listOrder;
+    private   JList listNewOrder;
 
     public Dialog(Market market) throws HeadlessException {
 
@@ -69,7 +71,7 @@ public class Dialog extends JFrame {
 
         Box boxNewOrder = Box.createVerticalBox();
         listModelNewOrder = new DefaultListModel();
-        JList listNewOrder = createList(null, listModelNewOrder);
+        listNewOrder = createList(null, listModelNewOrder);
         boxNewOrder.add(new JScrollPane(listNewOrder));
 
         Box boxAddOrder = Box.createHorizontalBox();
@@ -81,7 +83,7 @@ public class Dialog extends JFrame {
         buttonDeletePosition.addMouseListener(new MouseAdapter() {
                                                 @Override
                                                 public void mouseClicked(MouseEvent e) {
-                                                    System.out.println("Delete");
+                                                    onProductDelete(market);
                                                 }
                                             });
         boxAddOrder.add(buttonDeletePosition);
@@ -101,7 +103,7 @@ public class Dialog extends JFrame {
         boxOrder.add(boxAddOrder);
 
         Box boxOrderList = Box.createVerticalBox();
-        JList listOrder = createList(null, new DefaultListModel());
+        listOrder = createList(null, new DefaultListModel());
         boxOrderList.add(new JScrollPane(listOrder));
 
         Box boxOrderEdit = Box.createHorizontalBox();
@@ -130,10 +132,16 @@ public class Dialog extends JFrame {
         setResizable(false);
     }
 
+    private void onProductDelete(Market market) {
+        int index = listNewOrder.getSelectedIndex();
+        labelTotal.setText(market.deleteProductFromOrder(index));
+        listModelNewOrder.remove(index);
+    }
+
     private void onAddToOrder(Market market) {
         String count = fieldCountProduct.getText();
         listModelNewOrder.addElement((market.addProductToOrder(listProduct.getSelectedIndex(), Integer.parseInt(count)))+count+"шт");
-        labelTotal.setText(market.getTottalSum());
+        labelTotal.setText(market.getTotalSum());
     }
 
     private JList createList(Object[] listData, DefaultListModel listModel) {

@@ -1,7 +1,5 @@
 package Model;
 
-import UI.Dialog;
-
 public class Market {
     private StorageGoods storageGoods = new StorageGoods();
     private StorageOrders storageOrders = new StorageOrders();
@@ -24,8 +22,13 @@ public class Market {
         return  product;
     }
 
-    public String getTottalSum () {
+    public String getTotalSum() {
         return String.valueOf(order.getItemSum());
+    }
+
+    public String deleteProductFromOrder(int index) {
+        order.deleteProduct(index);
+        return getTotalSum();
     }
 
 }

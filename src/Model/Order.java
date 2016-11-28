@@ -1,12 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Order {
     private int orderNumber;
     private Client client;
-    private Map<Product, Integer> goods= new HashMap<>();
+    private List <Map<Product, Integer>> goods = new ArrayList();
     private double itemSum=0;
 
     public Order(int orderNumber) {
@@ -15,7 +17,9 @@ public class Order {
 
     void addProduct(Product product, int count)
     {
-        goods.put(product, count);
+        Map<Product, Integer> productCount = new HashMap<>();
+        productCount.put(product, count);
+        goods.add(productCount);
         itemSum+=count*product.getPrice();
     }
 
@@ -26,5 +30,13 @@ public class Order {
     @Override
     public String toString() {
         return orderNumber +";" + client+ ";" + itemSum + "р.";
+    }
+
+    void deleteProduct (int index){
+        Map<Product, Integer> productCount = goods.get(index);
+        Product product = productCount.entrySet().iterator().next().getKey();
+        int count = productCount.entrySet().iterator().next().getValue();
+        itemSum-=count*(product.getPrice());
+        goods.remove(index);
     }
 }

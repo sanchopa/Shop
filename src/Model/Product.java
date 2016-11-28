@@ -5,9 +5,9 @@ public class Product {
     private String author;
     private String publishing;
     private String year;
-    private Double price;
+    private String price;
 
-    public Product(String title, String author, String publishing, String year, Double price) {
+    public Product(String title, String author, String publishing, String year, String price) {
         this.title = title;
         this.author = author;
         this.publishing = publishing;
@@ -17,10 +17,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return title + ";" + author + ";" + publishing + ";"+ year + "; " + price+" RUR";
+        return title + ";" + author + ";" + publishing + ";"+ year + " - " + price+" RUR";
     }
 
     public Double getPrice() {
-        return price;
+        return Double.valueOf(price);
     }
 }

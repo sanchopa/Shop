@@ -1,5 +1,12 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Market {
     private StorageGoods storageGoods = new StorageGoods();
     private StorageOrders storageOrders = new StorageOrders();
@@ -44,5 +51,29 @@ public class Market {
 
     public void deleteOrder(int index) {
         storageOrders.deleteProduct(index);
+    }
+
+    public void getStorageGoodsFromFile (String fileName) {
+        if (fileName == null) {
+            return;
+        }
+        try {
+            LineNumberReader lineNumberReader = new LineNumberReader(new BufferedReader(new FileReader(fileName)));
+            String line;
+            while ((line = lineNumberReader.readLine()) != null) {
+                Map<String, String> propertiesProduct = new HashMap<>();
+                String[] strClient =line.split(";");
+                for (String properties:strClient) {
+                    propertiesProduct.put(properties.split("=")[0], properties.split("=")[1]);
+                }
+                addProductToStorage(new Product(propertiesProduct.get("Title"), propertiesProduct.get("Author"),
+                                                    propertiesProduct.get("Publishing"), propertiesProduct.get("Year"),
+                                                        propertiesProduct.get("Price")));
+            }
+            lineNumberReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

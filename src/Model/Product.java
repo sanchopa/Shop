@@ -17,7 +17,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return title + ';' + author + ';' + publishing + ';'+ year + ';' + price+"р.";
+        return title + ";" + author + ";" + publishing + ";"+ year + "; " + price+" RUR";
     }
 
     public Double getPrice() {

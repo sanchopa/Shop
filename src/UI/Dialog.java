@@ -9,18 +9,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Dialog extends JFrame {
-    private static JTextField fieldClientName;
-    private static JTextField fieldClientSurname;
-    private static JTextField fieldClientPhone;
-    private static JTextField fieldClientEmail;
-    private static JTextField fieldClientAddress;
-
+    private JTextField fieldClientName;
+    private JTextField fieldClientSurname;
+    private JTextField fieldClientPhone;
+    private JTextField fieldClientEmail;
+    private JTextField fieldClientAddress;
     private JTextField fieldCountProduct;
-    private DefaultListModel listModelNewOrder;
+    private DefaultListModel listModelNewOrder = new DefaultListModel();
+    private DefaultListModel listModelOrders  = new DefaultListModel();
     private JLabel labelTotal;
     private JList listProduct;
-    private  JList listOrder;
-    private   JList listNewOrder;
+    private JList listOrder;
+    private JList listNewOrder;
 
     public Dialog(Market market) throws HeadlessException {
 
@@ -70,7 +70,6 @@ public class Dialog extends JFrame {
         boxProduct.add(boxAddProductList);
 
         Box boxNewOrder = Box.createVerticalBox();
-        listModelNewOrder = new DefaultListModel();
         listNewOrder = createList(null, listModelNewOrder);
         boxNewOrder.add(new JScrollPane(listNewOrder));
 
@@ -92,7 +91,7 @@ public class Dialog extends JFrame {
         buttonBuyOrder.addMouseListener(new MouseAdapter() {
                                                 @Override
                                                 public void mouseClicked(MouseEvent e) {
-                                                    System.out.println("Buy");
+                                                    onBuyOrder(market);
                                                 }
                                             });
         boxAddOrder.add(buttonBuyOrder);
@@ -103,7 +102,7 @@ public class Dialog extends JFrame {
         boxOrder.add(boxAddOrder);
 
         Box boxOrderList = Box.createVerticalBox();
-        listOrder = createList(null, new DefaultListModel());
+        listOrder = createList(null, listModelOrders);
         boxOrderList.add(new JScrollPane(listOrder));
 
         Box boxOrderEdit = Box.createHorizontalBox();
@@ -140,8 +139,17 @@ public class Dialog extends JFrame {
 
     private void onAddToOrder(Market market) {
         String count = fieldCountProduct.getText();
-        listModelNewOrder.addElement((market.addProductToOrder(listProduct.getSelectedIndex(), Integer.parseInt(count)))+count+"шт");
+        listModelNewOrder.addElement((market.addProductToOrder(listProduct.getSelectedIndex(),
+                                                Integer.parseInt(count)))+count+"шт");
         labelTotal.setText(market.getTotalSum());
+    }
+
+    private void onBuyOrder(Market market) {
+        listModelOrders.addElement(market.buyOrder(fieldClientName.getText(), fieldClientSurname.getText(),
+                                                    fieldClientEmail.getText(),fieldClientPhone.getText(),
+                                                        fieldClientAddress.getText()));
+        market.newOrder();
+        listModelNewOrder.clear();
     }
 
     private JList createList(Object[] listData, DefaultListModel listModel) {

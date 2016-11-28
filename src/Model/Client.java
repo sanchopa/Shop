@@ -14,4 +14,9 @@ public class Client {
         this.phone = phone;
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Client: " + name + ' ' + surname + " phone: " + phone + " ";
+    }
 }

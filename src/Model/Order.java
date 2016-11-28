@@ -29,7 +29,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return orderNumber +";" + client+ ";" + itemSum + "р.";
+        return "#" + orderNumber +" " + client+ " item: " + itemSum + " RUB";
     }
 
     void deleteProduct (int index){

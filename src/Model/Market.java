@@ -42,7 +42,7 @@ public class Market {
         order=null;
     }
 
-    void deleteOrder() {
-
+    public void deleteOrder(int index) {
+        storageOrders.deleteProduct(index);
     }
 }

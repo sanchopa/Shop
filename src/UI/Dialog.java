@@ -25,7 +25,7 @@ public class Dialog extends JFrame {
     public Dialog(Market market) throws HeadlessException {
 
         super("Book shop");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         Box boxClientField = Box.createHorizontalBox();
         boxClientField.setBorder(new TitledBorder("Client"));
@@ -110,7 +110,7 @@ public class Dialog extends JFrame {
         buttonDeleteOrder.addMouseListener(new MouseAdapter() {
                                             @Override
                                             public void mouseClicked(MouseEvent e) {
-                                                System.out.println("Delete");
+                                                onDeleteOrder(market);
                                             }
                                         });
         boxOrderEdit.add(buttonDeleteOrder);
@@ -150,6 +150,12 @@ public class Dialog extends JFrame {
                                                         fieldClientAddress.getText()));
         market.newOrder();
         listModelNewOrder.clear();
+    }
+
+    private void onDeleteOrder (Market market) {
+        int index = listOrder.getSelectedIndex();
+        market.deleteOrder(index);
+        listModelOrders.remove(index);
     }
 
     private JList createList(Object[] listData, DefaultListModel listModel) {

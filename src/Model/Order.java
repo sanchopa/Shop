@@ -1,14 +1,13 @@
 package Model;
 
+import javafx.util.Pair;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Order {
     private int orderNumber;
     private Client client;
-    private List <Map<Product, Integer>> goods = new ArrayList();
+    private List <Pair<Product, Integer>> goods = new ArrayList();
     private double itemSum=0;
 
     public Order(int orderNumber) {
@@ -17,9 +16,7 @@ public class Order {
 
     void addProduct(Product product, int count)
     {
-        Map<Product, Integer> productCount = new HashMap<>();
-        productCount.put(product, count);
-        goods.add(productCount);
+        goods.add(new Pair<>(product, count));
         itemSum+=count*product.getPrice();
     }
 
@@ -29,13 +26,13 @@ public class Order {
 
     @Override
     public String toString() {
-        return "#" + orderNumber +" " + client+ " item: " + itemSum + " RUB";
+        return "#" + orderNumber +" " + client+ " total: " + itemSum + " RUB";
     }
 
     void deleteProduct (int index){
-        Map<Product, Integer> productCount = goods.get(index);
-        Product product = productCount.entrySet().iterator().next().getKey();
-        int count = productCount.entrySet().iterator().next().getValue();
+        Pair<Product, Integer> productCount = goods.get(index);
+        Product product = productCount.getKey();
+        int count = productCount.getValue();
         itemSum-=count*(product.getPrice());
         goods.remove(index);
     }

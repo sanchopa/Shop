@@ -57,27 +57,4 @@ public class Market {
     public void deleteOrder(int index) {
         storageOrders.delete(index);
     }
-
-    public void getStorageGoodsFromFile (String fileName) {
-        if (fileName == null) {
-            return;
-        }
-        try {
-            LineNumberReader lineNumberReader = new LineNumberReader(new BufferedReader(new FileReader(fileName)));
-            String line;
-            while ((line = lineNumberReader.readLine()) != null) {
-                Map<String, String> propertiesProduct = new HashMap<>();
-                String[] strClient =line.split(";");
-                for (String properties:strClient) {
-                    propertiesProduct.put(properties.split("=")[0], properties.split("=")[1]);
-                }
-                storageProducts.add(new Product(propertiesProduct.get("Title"), propertiesProduct.get("Author"),
-                                                    propertiesProduct.get("Publishing"), propertiesProduct.get("Year"),
-                                                        propertiesProduct.get("Price")));
-            }
-            lineNumberReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

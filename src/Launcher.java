@@ -23,7 +23,7 @@ public class Launcher {
                     "Вильямс", "2015", "3097"));
         }
         else{
-            market.getStorageGoodsFromFile(args[1]);
+            storageProducts.getStorageFromFile(args[1]);
         }
 
         JFrame myWindow = new Dialog(market);

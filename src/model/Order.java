@@ -7,7 +7,7 @@ import java.util.List;
 public class Order {
     private int orderNumber;
     private Client client;
-    private List <Pair<Product, Integer>> goods = new ArrayList();
+    private List <Pair<Product, Integer>> products = new ArrayList();
 
     public Order(int orderNumber) {
         this.orderNumber = orderNumber;
@@ -15,12 +15,12 @@ public class Order {
 
     public void addProduct(Product product, int count)
     {
-        goods.add(new Pair<>(product, count));
+        products.add(new Pair<>(product, count));
     }
 
     public double getOrderPrice() {
         double orderPrice = 0;
-        for (Pair<Product, Integer> productCount:goods) {
+        for (Pair<Product, Integer> productCount: products) {
             orderPrice+=productCount.getKey().getPrice()*productCount.getValue();
         }
         return orderPrice;
@@ -32,10 +32,10 @@ public class Order {
     }
 
     public void deleteProduct(int index){
-        Pair<Product, Integer> productCount = goods.get(index);
+        Pair<Product, Integer> productCount = products.get(index);
         Product product = productCount.getKey();
         int count = productCount.getValue();
-        goods.remove(index);
+        products.remove(index);
     }
 
     public void setClient(Client client) {

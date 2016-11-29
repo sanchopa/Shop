@@ -4,13 +4,6 @@ import dao.StorageProducts;
 import dao.StorageOrders;
 import model.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Market {
     private StorageProducts storageProducts;
     private StorageOrders storageOrders;
@@ -27,7 +20,7 @@ public class Market {
 
     public Product addProductToOrder(int indexProduct, int count) {
         if(order==null) {
-            order = new Order(storageOrders.getFreeNumber());
+            order = new Order();
         }
         Product product =  storageProducts.get(indexProduct);
         order.addProduct(product, count);
@@ -44,6 +37,9 @@ public class Market {
     }
 
     public Order buyOrder(String name, String surname, String email, String phone, String address) {
+        if(order==null) {
+            return null;
+        }
         Client client = new Client(name,surname,email,phone, address);
         order.setClient(client);
         storageOrders.add(order);

@@ -12,8 +12,6 @@ public class Launcher {
         StorageProducts storageProducts = new StorageProducts();
         StorageOrders storageOrders = new StorageOrders();
 
-        Market market = new Market(storageProducts, storageOrders);
-
         if(args[1].equals("o")) {
             storageProducts.add(new Product("Философия Java", "Эккель Брюс",
                     "Питер", "2015", "1224"));
@@ -25,6 +23,8 @@ public class Launcher {
         else{
             storageProducts.getStorageFromFile(args[1]);
         }
+
+        Market market = new Market(storageProducts, storageOrders);
 
         JFrame myWindow = new Dialog(market);
         myWindow.setVisible(true);

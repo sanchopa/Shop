@@ -2,6 +2,7 @@ package UI;
 
 import service.Market;
 
+import javax.lang.model.element.Element;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -21,6 +22,7 @@ public class Dialog extends JFrame {
     private JList listProduct;
     private JList listOrder;
     private JList listNewOrder;
+    JLabel labelStatus;
 
     public Dialog(Market market) throws HeadlessException {
 
@@ -119,6 +121,8 @@ public class Dialog extends JFrame {
         boxOrders.setBorder(new TitledBorder("Orders"));
         boxOrders.add(boxOrderList);
         boxOrders.add(boxOrderEdit);
+        labelStatus = new JLabel();
+        boxAddOrder.add(labelStatus);
 
         Box boxGeneral = Box.createVerticalBox();
         boxGeneral.add(boxClientField);
@@ -133,21 +137,31 @@ public class Dialog extends JFrame {
 
     private void onProductDelete(Market market) {
         int index = listNewOrder.getSelectedIndex();
+        if(index==-1) {
+            return;
+        }
         labelTotal.setText(market.deleteProductFromOrder(index));
         listModelNewOrder.remove(index);
     }
 
     private void onAddToOrder(Market market) {
+        int selectIndex = listProduct.getSelectedIndex();
+        if(selectIndex==-1) {
+            return;
+        }
         String count = fieldCountProduct.getText();
-        listModelNewOrder.addElement((market.addProductToOrder(listProduct.getSelectedIndex(),
+        listModelNewOrder.addElement((market.addProductToOrder(selectIndex,
                                                 Integer.parseInt(count)))+"-"+count+" шт");
         labelTotal.setText(market.getStringOrderPrice());
     }
 
     private void onBuyOrder(Market market) {
-        listModelOrders.addElement(market.buyOrder(fieldClientName.getText(), fieldClientSurname.getText(),
-                                                    fieldClientEmail.getText(),fieldClientPhone.getText(),
-                                                        fieldClientAddress.getText()));
+
+        Object order = market.buyOrder(fieldClientName.getText(), fieldClientSurname.getText(),
+                fieldClientEmail.getText(),fieldClientPhone.getText(),
+                fieldClientAddress.getText());
+        if(order==null) return;
+        listModelOrders.addElement(order);
         market.newOrder();
         labelTotal.setText("0.0");
         listModelNewOrder.clear();
@@ -155,6 +169,9 @@ public class Dialog extends JFrame {
 
     private void onDeleteOrder (Market market) {
         int index = listOrder.getSelectedIndex();
+        if(index==-1) {
+            return;
+        }
         market.deleteOrder(index);
         listModelOrders.remove(index);
     }

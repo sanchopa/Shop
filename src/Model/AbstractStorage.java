@@ -6,11 +6,11 @@ import java.util.List;
 public class AbstractStorage<E> {
     private List<E> storage = new ArrayList<>();
 
-    void addProduct (E product) {
+    public void addProduct(E product) {
         storage.add(product);
     }
 
-    List<String> getStringListStorags(){
+    public List<String> getStringListStorags(){
         List<String> stringListStorags = new ArrayList<>();
         for (E product: storage) {
             stringListStorags.add(product.toString());
@@ -18,15 +18,15 @@ public class AbstractStorage<E> {
         return stringListStorags;
     }
 
-    int getFreeNumber() {
+    public int getFreeNumber() {
         return storage.size()+1;
     }
 
-    E getProduct(int index) {
+    public E getProduct(int index) {
         return storage.get(index);
     }
 
-    void deleteProduct(int index) {
+    public void deleteProduct(int index) {
         storage.remove(index);
     }
 }

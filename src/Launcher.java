@@ -1,5 +1,7 @@
-import Model.Market;
+import Service.Market;
 import Model.Product;
+import Model.StorageGoods;
+import Model.StorageOrders;
 import UI.Dialog;
 
 import javax.swing.*;
@@ -7,7 +9,10 @@ import javax.swing.*;
 public class Launcher {
     public static void main(String[] args) {
 
-        Market market = new Market();
+        StorageGoods storageGoods = new StorageGoods();
+        StorageOrders storageOrders = new StorageOrders();
+
+        Market market = new Market(storageGoods, storageOrders);
 
         if(args[1].equals("o")) {
             market.addProductToStorage(new Product("Философия Java", "Эккель Брюс",

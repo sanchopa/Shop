@@ -13,7 +13,7 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    void addProduct(Product product, int count)
+    public void addProduct(Product product, int count)
     {
         goods.add(new Pair<>(product, count));
     }
@@ -31,7 +31,7 @@ public class Order {
         return "#" + orderNumber +" " + client+ " total: " + getOrderPrice() + " RUB";
     }
 
-    void deleteProduct (int index){
+    public void deleteProduct(int index){
         Pair<Product, Integer> productCount = goods.get(index);
         Product product = productCount.getKey();
         int count = productCount.getValue();

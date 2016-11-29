@@ -1,4 +1,6 @@
-package Model;
+package Service;
+
+import Model.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,9 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Market {
-    private StorageGoods storageGoods = new StorageGoods();
-    private StorageOrders storageOrders = new StorageOrders();
+    private StorageGoods storageGoods;
+    private StorageOrders storageOrders;
     private Order order = null;
+
+    public Market(StorageGoods storageGoods, StorageOrders storageOrders) {
+        this.storageGoods = storageGoods;
+        this.storageOrders = storageOrders;
+    }
 
     public Object[] getStringStorageGoods() {
         return storageGoods.getStringListStorags().toArray();

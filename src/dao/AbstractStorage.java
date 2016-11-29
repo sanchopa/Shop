@@ -1,12 +1,12 @@
-package Model;
+package dao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractStorage<E> {
+public abstract class AbstractStorage<E> {
     private List<E> storage = new ArrayList<>();
 
-    public void addProduct(E product) {
+    public void add(E product) {
         storage.add(product);
     }
 
@@ -22,11 +22,11 @@ public class AbstractStorage<E> {
         return storage.size()+1;
     }
 
-    public E getProduct(int index) {
+    public E get(int index) {
         return storage.get(index);
     }
 
-    public void deleteProduct(int index) {
+    public void delete(int index) {
         storage.remove(index);
     }
 }

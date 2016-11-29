@@ -1,6 +1,8 @@
-package Service;
+package service;
 
-import Model.*;
+import dao.StorageGoods;
+import dao.StorageOrders;
+import model.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,14 +26,14 @@ public class Market {
     }
 
     public void addProductToStorage(Product product) {
-        storageGoods.addProduct(product);
+        storageGoods.add(product);
     }
 
     public Product addProductToOrder(int indexProduct, int count) {
         if(order==null) {
             order = new Order(storageOrders.getFreeNumber());
         }
-        Product product =  storageGoods.getProduct(indexProduct);
+        Product product =  storageGoods.get(indexProduct);
         order.addProduct(product, count);
         return  product;
     }
@@ -48,7 +50,7 @@ public class Market {
     public Order buyOrder(String name, String surname, String email, String phone, String address) {
         Client client = new Client(name,surname,email,phone, address);
         order.setClient(client);
-        storageOrders.addProduct(order);
+        storageOrders.add(order);
         return order;
     }
 
@@ -57,7 +59,7 @@ public class Market {
     }
 
     public void deleteOrder(int index) {
-        storageOrders.deleteProduct(index);
+        storageOrders.delete(index);
     }
 
     public void getStorageGoodsFromFile (String fileName) {

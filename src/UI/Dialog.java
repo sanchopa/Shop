@@ -1,6 +1,6 @@
 package UI;
 
-import Service.Market;
+import service.Market;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

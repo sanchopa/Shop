@@ -1,7 +1,7 @@
-import Service.Market;
-import Model.Product;
-import Model.StorageGoods;
-import Model.StorageOrders;
+import service.Market;
+import model.Product;
+import dao.StorageGoods;
+import dao.StorageOrders;
 import UI.Dialog;
 
 import javax.swing.*;

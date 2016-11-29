@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStorage<E> {
-    private List<E> storage = new ArrayList<>();
+    private List<E> list = new ArrayList<>();
 
-    public void add(E product) {
-        storage.add(product);
+    public void add(E item) {
+        list.add(item);
     }
 
-    public List<String> getStringListStorags(){
-        List<String> stringListStorags = new ArrayList<>();
-        for (E product: storage) {
-            stringListStorags.add(product.toString());
+    public List<String> getListString(){
+        List<String> stringList = new ArrayList<>();
+        for (E item: list) {
+            stringList.add(item.toString());
         }
-        return stringListStorags;
+        return stringList;
     }
 
     public int getFreeNumber() {
-        return storage.size()+1;
+        return list.size()+1;
     }
 
     public E get(int index) {
-        return storage.get(index);
+        return list.get(index);
     }
 
     public void delete(int index) {
-        storage.remove(index);
+        list.remove(index);
     }
 }

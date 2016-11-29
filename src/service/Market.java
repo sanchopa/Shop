@@ -22,11 +22,7 @@ public class Market {
     }
 
     public Object[] getStringStorageGoods() {
-        return storageGoods.getStringListStorags().toArray();
-    }
-
-    public void addProductToStorage(Product product) {
-        storageGoods.add(product);
+        return storageGoods.getListString().toArray();
     }
 
     public Product addProductToOrder(int indexProduct, int count) {
@@ -38,13 +34,13 @@ public class Market {
         return  product;
     }
 
-    public String getTotalSum() {
+    public String getStringOrderPrice() {
         return String.valueOf(order.getOrderPrice());
     }
 
     public String deleteProductFromOrder(int index) {
         order.deleteProduct(index);
-        return getTotalSum();
+        return getStringOrderPrice();
     }
 
     public Order buyOrder(String name, String surname, String email, String phone, String address) {
@@ -75,7 +71,7 @@ public class Market {
                 for (String properties:strClient) {
                     propertiesProduct.put(properties.split("=")[0], properties.split("=")[1]);
                 }
-                addProductToStorage(new Product(propertiesProduct.get("Title"), propertiesProduct.get("Author"),
+                storageGoods.add(new Product(propertiesProduct.get("Title"), propertiesProduct.get("Author"),
                                                     propertiesProduct.get("Publishing"), propertiesProduct.get("Year"),
                                                         propertiesProduct.get("Price")));
             }
@@ -83,6 +79,5 @@ public class Market {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

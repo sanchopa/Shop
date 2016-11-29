@@ -140,7 +140,7 @@ public class Dialog extends JFrame {
     private void onAddToOrder(Market market) {
         String count = fieldCountProduct.getText();
         listModelNewOrder.addElement((market.addProductToOrder(listProduct.getSelectedIndex(),
-                                                Integer.parseInt(count)))+count+"шт");
+                                                Integer.parseInt(count)))+"-"+count+" шт");
         labelTotal.setText(market.getTotalSum());
     }
 
@@ -149,6 +149,7 @@ public class Dialog extends JFrame {
                                                     fieldClientEmail.getText(),fieldClientPhone.getText(),
                                                         fieldClientAddress.getText()));
         market.newOrder();
+        labelTotal.setText("0.0");
         listModelNewOrder.clear();
     }
 

@@ -30,7 +30,7 @@ public class Market {
     }
 
     public String getTotalSum() {
-        return String.valueOf(order.getItemSum());
+        return String.valueOf(order.getOrderPrice());
     }
 
     public String deleteProductFromOrder(int index) {

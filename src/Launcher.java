@@ -1,6 +1,6 @@
 import service.Market;
 import model.Product;
-import dao.StorageGoods;
+import dao.StorageProducts;
 import dao.StorageOrders;
 import UI.Dialog;
 
@@ -9,17 +9,17 @@ import javax.swing.*;
 public class Launcher {
     public static void main(String[] args) {
 
-        StorageGoods storageGoods = new StorageGoods();
+        StorageProducts storageProducts = new StorageProducts();
         StorageOrders storageOrders = new StorageOrders();
 
-        Market market = new Market(storageGoods, storageOrders);
+        Market market = new Market(storageProducts, storageOrders);
 
         if(args[1].equals("o")) {
-            storageGoods.add(new Product("Философия Java", "Эккель Брюс",
+            storageProducts.add(new Product("Философия Java", "Эккель Брюс",
                     "Питер", "2015", "1224"));
-            storageGoods.add(new Product("Изучаем Java", "Сьерра Кэтти, Бейтс Берт",
+            storageProducts.add(new Product("Изучаем Java", "Сьерра Кэтти, Бейтс Берт",
                     "Эксмо", "2012", "659"));
-            storageGoods.add(new Product("Java 8. Полное руководство", "Шилдт Герберт",
+            storageProducts.add(new Product("Java 8. Полное руководство", "Шилдт Герберт",
                     "Вильямс", "2015", "3097"));
         }
         else{

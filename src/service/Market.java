@@ -1,6 +1,6 @@
 package service;
 
-import dao.StorageGoods;
+import dao.StorageProducts;
 import dao.StorageOrders;
 import model.*;
 
@@ -12,24 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Market {
-    private StorageGoods storageGoods;
+    private StorageProducts storageProducts;
     private StorageOrders storageOrders;
     private Order order = null;
 
-    public Market(StorageGoods storageGoods, StorageOrders storageOrders) {
-        this.storageGoods = storageGoods;
+    public Market(StorageProducts storageProducts, StorageOrders storageOrders) {
+        this.storageProducts = storageProducts;
         this.storageOrders = storageOrders;
     }
 
     public Object[] getStringStorageGoods() {
-        return storageGoods.getListString().toArray();
+        return storageProducts.getListString().toArray();
     }
 
     public Product addProductToOrder(int indexProduct, int count) {
         if(order==null) {
             order = new Order(storageOrders.getFreeNumber());
         }
-        Product product =  storageGoods.get(indexProduct);
+        Product product =  storageProducts.get(indexProduct);
         order.addProduct(product, count);
         return  product;
     }
@@ -71,7 +71,7 @@ public class Market {
                 for (String properties:strClient) {
                     propertiesProduct.put(properties.split("=")[0], properties.split("=")[1]);
                 }
-                storageGoods.add(new Product(propertiesProduct.get("Title"), propertiesProduct.get("Author"),
+                storageProducts.add(new Product(propertiesProduct.get("Title"), propertiesProduct.get("Author"),
                                                     propertiesProduct.get("Publishing"), propertiesProduct.get("Year"),
                                                         propertiesProduct.get("Price")));
             }

@@ -3,8 +3,9 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractStorage<E> {
+public abstract class AbstractStorage<E> implements Storage<E> {
     private List<E> list = new ArrayList<>();
+
 
     public void add(E item) {
         list.add(item);

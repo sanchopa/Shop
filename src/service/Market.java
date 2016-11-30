@@ -14,7 +14,7 @@ public class Market {
         this.storageOrders = storageOrders;
     }
 
-    public Object[] getStringStorageGoods() {
+    public Object[] getStringStorageProducts() {
         return storageProducts.getListString().toArray();
     }
 

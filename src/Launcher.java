@@ -8,7 +8,6 @@ import javax.swing.*;
 
 public class Launcher {
     public static void main(String[] args) {
-
         StorageProducts storageProducts = new StorageProducts();
         StorageOrders storageOrders = new StorageOrders();
 

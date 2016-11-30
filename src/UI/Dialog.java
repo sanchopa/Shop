@@ -2,7 +2,6 @@ package UI;
 
 import service.Market;
 
-import javax.lang.model.element.Element;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -48,7 +47,7 @@ public class Dialog extends JFrame {
         boxClientField.add(fieldClientAddress);
 
         Box boxProductList = Box.createVerticalBox();
-        listProduct = createList(market.getStringStorageGoods(),new DefaultListModel());
+        listProduct = createList(market.getStringStorageProducts(),new DefaultListModel());
         boxProductList.add(new JScrollPane(listProduct));
 
         Box boxAddProductList = Box.createHorizontalBox();
